@@ -20,7 +20,7 @@ test("POST deveria retornar 200", async () => {
   // SEGUNDA REQUEST \\
 
   const response2 = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "POST",
+    method: "POSt",
   });
   expect(response2.status).toBe(200);
 
