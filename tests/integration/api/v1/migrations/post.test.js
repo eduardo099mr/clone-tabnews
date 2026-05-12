@@ -1,9 +1,10 @@
 import database from "infra/database";
+import orchestrator from "tests/orchestrator.js";
 
-beforeAll(cleanDatabase);
-async function cleanDatabase() {
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
   await database.query("drop schema public cascade; create schema public;");
-}
+});
 
 test("POST deveria retornar 200", async () => {
   const response1 = await fetch("http://localhost:3000/api/v1/migrations", {
@@ -20,7 +21,7 @@ test("POST deveria retornar 200", async () => {
   // SEGUNDA REQUEST \\
 
   const response2 = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "POSt",
+    method: "POST",
   });
   expect(response2.status).toBe(200);
 
