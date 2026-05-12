@@ -6,11 +6,11 @@ async function status(request, response) {
   const db_version = result_databasequery.rows[0].server_version;
   console.log("VERSION: " + db_version);
 
-  const maxConnectiosresult = await database.query("SHOW max_connections;");
-  const maxConnectiosValue = parseInt(
-    maxConnectiosresult.rows[0].max_connections,
+  const maxConnectionsresult = await database.query("SHOW max_connections;");
+  const maxConnectionsValue = parseInt(
+    maxConnectionsresult.rows[0].max_connections,
   );
-  console.log("MAX_CONNECTIONS: " + maxConnectiosValue);
+  console.log("MAX_CONNECTIONS: " + maxConnectionsValue);
 
   const databaseName = process.env.POSTGRES_DB;
   const openedConnectionsResult = await database.query({
@@ -19,12 +19,13 @@ async function status(request, response) {
   });
   console.log("OPENED_CONNECTIONS: " + openedConnectionsResult.rows[0].count);
   const openedConnectionsValue = openedConnectionsResult.rows[0].count;
+  console.log(openedConnectionsResult.rows[0]);
 
   response.status(200).json({
     updated_at: updatedAt,
     dependencies: {
       version: db_version,
-      max_connections: maxConnectiosValue,
+      max_connections: maxConnectionsValue,
       opened_connections: openedConnectionsValue,
     },
   });
