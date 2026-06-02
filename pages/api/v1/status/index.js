@@ -17,6 +17,7 @@ async function status(request, response) {
     text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
     values: [databaseName],
   });
+
   console.log("OPENED_CONNECTIONS: " + openedConnectionsResult.rows[0].count);
   const openedConnectionsValue = openedConnectionsResult.rows[0].count;
   console.log(openedConnectionsResult.rows[0]);

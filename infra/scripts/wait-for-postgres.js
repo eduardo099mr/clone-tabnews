@@ -8,14 +8,14 @@ function checkPostgres() {
     if (stdout.search("accepting connections") === -1) {
       process.stdout.write(".");
       if (count % 2 == 0) {
-        process.stdout.clearLine(1);
+        process.stdout.clearLine();
         process.stdout.cursorTo(0);
-        process.stdout.write("\033[33m⚪\033[0mPOSTGRES CARREGANDO ");
+        process.stdout.write("\x1b[33m⚪\x1b[0mPOSTGRES CARREGANDO ");
       }
       if (count % 2 !== 0) {
-        process.stdout.clearLine(1);
+        process.stdout.clearLine();
         process.stdout.cursorTo(0);
-        process.stdout.write("\033[33m⚫\033[0mPOSTGRES CARREGANDO ");
+        process.stdout.write("\x1b[33m⚫\x1b[0mPOSTGRES CARREGANDO ");
       }
       count++;
       checkPostgres();
@@ -23,7 +23,7 @@ function checkPostgres() {
     }
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
-    process.stdout.write("\033[32m⚫\033[0mPOSTGRES CARREGADO\n");
+    process.stdout.write("\x1b[32m⚫\x1b[0mPOSTGRES CARREGADO\n");
   }
 }
 
